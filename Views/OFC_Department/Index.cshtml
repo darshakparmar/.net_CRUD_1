@@ -1,0 +1,23 @@
+﻿@model OFC_DepartmentModel
+
+<div>
+
+    <div>DEPARTMENT</div>
+
+    <label>Student List</label>
+    <select asp-for="DeptID" class="form-control" asp-items="@(new SelectList(Model.DeptList ,"Value","Text"))"  >
+
+    </select>
+</div>
+
+<div>
+    
+    
+   @* @Html.DropDownListFor(d => d.DeptID , new SelectList(Model.DeptList , "Value","Text") , new{@class="form-control"})*@
+</div>
+
+
+@*@Html.DropDownList("SelectedDepartment", (SelectList)ViewBag.DepartmentList, new { @class = "form-control" })
+*@
+@*@Html.DropDownList("SelectedOption", (SelectList)ViewBag.Options, new { @class = "form-control" })*@
+

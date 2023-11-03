@@ -1,0 +1,86 @@
+html {
+  font-size: 14px;
+}
+*{
+    /*font-family: 'Times New Roman', Times, serif*/
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.forSearch{
+    margin-left : 600px;
+}
+
+.formBoxAll{
+    margin-top: 8px;
+}
+header{
+    margin-bottom : 8px;
+}
+
+.frmCenter{
+    display: flex;
+    justify-content : center;
+    align-items:center
+}
+label{
+    /*font-family :'Sans Serif Collection';*/
+}
+input[asp-for="Email"]{
+    text-decoration: none;
+}
+.loading-container {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    background-color: #f0f0f0;
+}
+
+td > a{
+    text-decoration:none;
+    color: black;
+    cursor:auto;
+}
+td > a : hover{
+    color: black;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-content {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}

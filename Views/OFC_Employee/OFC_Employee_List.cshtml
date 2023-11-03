@@ -1,0 +1,139 @@
+﻿@model IEnumerable<OFC_EmployeeModel>
+
+@*<h1>Employee List</h1>
+
+<a asp-controller="OFC_Employee" asp-action="Add" class="btn btn-success">Add</a>*@
+<style>
+    .table{
+        --bs-table-striped-bg: rgb(18 100 213 / 4%);
+    }
+</style>
+
+<div class="d-flex container">
+    <div class="fw-bold fs-3">Employee List</div>
+    <div class="position-absolute" style="right:10%;">
+        <a asp-controller="OFC_Employee" asp-action="AddEdit" class="btn btn-success" >Add Employee &nbsp;  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="30" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+  <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+</svg></a>
+    </div>
+@*<form class="d-flex"> <input class="form-control mr-2" style="height:38px;position: relative;left: 595%;" id="sample_1" size="9" type="search" placeholder="Search" aria-label="Search"></form>
+*@</div>
+
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <p>This is the pop-up content.</p>
+    </div>
+</div>
+
+
+<table class="table table-responsive table-sm table-striped table-hover table-bordered mt-20" style="margin-top:20px" >
+    <thead>
+        <tr class="text-center" >
+            @*<th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>D.O.B.</th>*@
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.EmpID)
+            </th>
+             <th class="text-center">
+                @Html.DisplayNameFor(model => model.EmpName)
+            </th>
+             <th class="text-center">
+                @Html.DisplayNameFor(model => model.DeptName)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+             <th class="text-center">
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+             <th class="text-center">
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th class="text-center">
+                Action
+            </th>
+
+        </tr>
+        
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.EmpID)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.EmpName)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.DeptName)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td class="text-center">
+                    @{String str = Convert.ToDateTime(item.DateOfBirth).ToString("dd-MM-yyyy"); }
+                    @Html.DisplayFor(modelItem => str)
+                </td>
+                <td class="d-flex justify-content-center">
+                    <form method="post" asp-controller="OFC_Employee" asp-action="AddEdit">
+                        <input type="hidden" name="EmpID" value="@item.EmpID" />
+                        <button type="submit" class="btn btn-dark my-3 mx-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <form method="post" asp-controller="OFC_Employee" asp-action="Delete">
+                        <input type="hidden" name="EmpID" value="@item.EmpID" />
+                        <button type="submit" class="btn btn-danger my-3 mx-2" onclick="return confirm('Are You Sure Want to Delete?')" asp-action="Delete" asp-controller="OFC_Employee" asp-route-stateid="@item.EmpID">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                              <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    function openPopup() {
+        document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+
+    // Example: Display the pop-up conditionally
+    $(document).ready(function () {
+        // You can add your conditional logic here
+        var shouldDisplayPopup = true; // Change this condition as needed
+        if (shouldDisplayPopup) {
+            openPopup();
+        }
+    });
+</script>
+

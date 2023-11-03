@@ -1,0 +1,133 @@
+﻿@model OFC_EmployeeModel
+
+
+
+
+<h1 style="text-align : center" >Employee Form</h1>
+
+<div class="row frmCenter" >
+    <div class="col-md-4 align-items-center" >
+        <form method="post" asp-controller="OFC_Employee" asp-action="Save"  >
+            @Html.HiddenFor(x=>x.EmpID)
+            <div asp-validation-summary="ModelOnly" class="text-danger" >
+            </div>
+
+            <br />
+            @*<div>
+                <select class="form-control" asp-for="DeptID" asp-items="@(new SelectListItems(ViewBag.CountryList,"DeptID","DeptName"))">
+                    <option value="">Select Country</option>
+                </select>
+            </div>*@
+           @* <label asp-for="DeptID" class="control-label" >Your Department</label>*@
+            <div class="form-group form-floating formBoxAll" >
+                
+                <select asp-for="DeptID" class="form-control form-floating" asp-items="@(new SelectList(Model.DeptLisE , "Value",  "Text",selectedValue: Model.DeptID))">
+                </select>
+                <label for="floatingSelect">Your Working Department</label>
+                <span asp-validation-for="DeptID" class="text-danger"></span>
+            </div>
+            <div class="form-group formBoxAll" >
+                <label asp-for="EmpName" class="control-label" ></label>
+                <input asp-for="EmpName" class="form-control" />
+                <span asp-validation-for="EmpName" class="text-danger"></span>
+            </div>
+            <div class="form-group formBoxAll" >
+                <label asp-for="Email" class="control-label" ></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group formBoxAll" >
+                <label asp-for="PhoneNumber" class="control-label" ></label>
+                <input asp-for="PhoneNumber"  pattern="[0-9]{10}" type="number" id="phoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            @*<div class="form-group" >
+                <label asp-for="Gender" class="control-label" ></label>
+                <input asp-for="Gender" class="form-control" />
+            </div>*@
+
+            
+
+            <div class="form-group formBoxAll">
+                <label asp-for="Gender" class="control-label"></label>
+                <br />
+                @foreach (var item in Html.GetEnumSelectList<Gender>())
+                {
+                    if(Model.Gender != null)
+                    {
+                        if(Model.Gender.Trim() == item.Text)
+                        {
+                            <input class="" type="radio" asp-for="Gender" value="@item.Text" checked /> @item.Text
+                        }
+                        else
+                        {
+                            <input class="" type="radio" asp-for="Gender" value="@item.Text" /> @item.Text
+                        }
+                    }
+                    else
+                    {
+                        if(@item.Text == "Male")
+                        {
+                            <input class="" type="radio" asp-for="Gender" value="@item.Text" checked /> @item.Text
+                        }
+                        else
+                        {
+                            <input class="" type="radio" asp-for="Gender" value="@item.Text" /> @item.Text
+                        }
+                    }
+
+
+                }
+                <br />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+
+            @*<div>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input form-control" asp-for="Gender" type="radio" value="Male">
+                  <label class="form-check-label control-label" asp-for="Gender">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input form-control" asp-for="Gender" type="radio" value="Female">
+                  <label class="form-check-label control-label" asp-for="Gender">Female</label>
+                </div>
+
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>*@
+
+            
+
+            <div class="form-group formBoxAll" >
+                <label asp-for="DateOfBirth" class="control-label" >Birth Date</label>
+                <input type="date" asp-for="DateOfBirth" class="form-control" />
+                @*<span asp-validation-for="DateOfBirth" class="text-danger"></span>*@
+            </div>
+            <div class="form-group" >
+                <input type="submit" value="Save" class="btn btn-dark" />
+
+                <form method="post" asp-controller="OFC_Employee" asp-action="Index">
+                        <button type="submit" class="btn btn-dark my-3 mx-2" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                              <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                            </svg>
+                        </button>
+                    </form>
+
+            </div>
+
+            
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
